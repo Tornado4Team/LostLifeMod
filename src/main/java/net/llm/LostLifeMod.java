@@ -2,6 +2,9 @@ package net.llm;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.llm.entity.ModEntityClass;
+import net.llm.entity.custom.ChomperEntity;
 import net.llm.item.ModItemGroup;
 import net.llm.item.ModItems;
 import org.slf4j.Logger;
@@ -19,6 +22,9 @@ public class LostLifeMod implements ModInitializer {
 		ModItems.registerModItems();
 		// Proceed with mild caution.
 		GeckoLib.initialize();
+
+		FabricDefaultAttributeRegistry.register(ModEntityClass.CHOMPER, ChomperEntity.setAttributes());
+
 		LOGGER.info("Hello Fabric world!");
 	}
 }

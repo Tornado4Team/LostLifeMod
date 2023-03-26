@@ -1,0 +1,93 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "body",
+					"pivot": [0, 8, -0.5],
+					"cubes": [
+						{"origin": [-3, 3, -0.5], "size": [6, 4, 7], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "neck",
+					"parent": "body",
+					"pivot": [0, 7.01837, -0.24058],
+					"cubes": [
+						{"origin": [-1.5, 6.89775, -0.43533], "size": [3, 4, 2], "pivot": [0, 6.06948, -0.52881], "rotation": [-15, 0, 0], "uv": [20, 0]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "neck",
+					"pivot": [0, 7.75, 0],
+					"cubes": [
+						{"origin": [-2, 7.75, -2], "size": [4, 4, 4], "uv": [0, 12]}
+					]
+				},
+				{
+					"name": "beak_top",
+					"parent": "head",
+					"pivot": [0, 9.0025, -1.5],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, 9, -5.5], "size": [3, 2, 4], "uv": [17, 12]},
+						{"origin": [-1, 8.02, -5.49], "size": [2, 1.01, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "beak_bot",
+					"parent": "head",
+					"pivot": [0, 9, -1.55],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, 8, -5.3], "size": [3, 1, 4], "uv": [13, 19]}
+					]
+				},
+				{
+					"name": "l_leg",
+					"parent": "body",
+					"pivot": [-1.5, 3, 4.5],
+					"cubes": [
+						{"origin": [-3, 0, 4.5], "size": [3, 3, 0], "uv": [9, 25]},
+						{"origin": [-3, 0, 2.5], "size": [3, 0, 2], "uv": [31, 1]}
+					]
+				},
+				{
+					"name": "r_leg",
+					"parent": "body",
+					"pivot": [1.5, 3, 4.5],
+					"cubes": [
+						{"origin": [0, 0, 4.5], "size": [3, 3, 0], "uv": [0, 21]},
+						{"origin": [0, 0, 2.5], "size": [3, 0, 2], "uv": [31, 1]}
+					]
+				},
+				{
+					"name": "l_wing",
+					"parent": "body",
+					"pivot": [3, 6, 1.5],
+					"cubes": [
+						{"origin": [2.5, 4, 1], "size": [1, 2, 3], "uv": [26, 22]}
+					]
+				},
+				{
+					"name": "r_wing",
+					"parent": "body",
+					"pivot": [3, 6, 1.5],
+					"cubes": [
+						{"origin": [-3.5, 4, 1], "size": [1, 2, 3], "uv": [20, 25]}
+					]
+				}
+			]
+		}
+	]
+}
