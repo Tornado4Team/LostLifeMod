@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lostlifemod:cenozoic_fossil_block"
+    }
+  ],
+  "result": {
+    "item": "lostlifemod:fossil",
+    "count": 9
+  }
+}
