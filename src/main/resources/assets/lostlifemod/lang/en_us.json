@@ -1,3 +1,6 @@
 {
-  "item.lostlifemod.fossil": "Fossil"
+  "item.lostlifemod.fossil": "Fossil",
+  "item.lostlifemod.data_drive": "Data drive",
+
+  "block.lostlifemod.cenozoic_fossil_block": "Cenozoic Fossil Block"
 }

@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.llm.LostLifeMod;
 import net.llm.entity.ModEntityClass;
+import net.llm.item.custom.DataDriveItem;
+import net.llm.item.custom.FossilItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
@@ -13,7 +15,8 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
-    public static final Item FOSSIL = registerItem("fossil", new Item(new FabricItemSettings()));
+    public static final Item FOSSIL = registerItem("fossil", new FossilItem(new FabricItemSettings()));
+    public static final Item DATA_DRIVE = registerItem("data_drive", new DataDriveItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item CHOMPER_SPAWN_EGG = registerItem("chomper_spawn_egg",
             new SpawnEggItem(ModEntityClass.CHOMPER,0x22b341, 0x19732e,
@@ -25,6 +28,7 @@ public class ModItems {
     public static void addItemsToItemGroup(){
         addToItemGroup(ModItemGroup.LOSTLIFE, FOSSIL);
         addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_SPAWN_EGG);
+        addToItemGroup(ModItemGroup.LOSTLIFE, DATA_DRIVE);
     }
 
     private static void addToItemGroup(ItemGroup group, Item item){
