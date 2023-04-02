@@ -35,7 +35,7 @@ public class ModBlocks {
         return item;
     }
 
-    public static void registerModBLocks(){
+    public static void registerModBlocks(){
         LostLifeMod.LOGGER.info("Registering ModBlocks for "+LostLifeMod.MOD_ID);
     }
 }

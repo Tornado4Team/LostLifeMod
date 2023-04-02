@@ -6,7 +6,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.llm.block.ModBlocks;
-import net.llm.block.custom.ModBlockEntities;
+import net.llm.block.custom.entity.ModBlockEntities;
+import net.llm.block.custom.screen.ModScreenHandlers;
 import net.llm.entity.ModEntityClass;
 import net.llm.entity.custom.ChomperEntity;
 import net.llm.item.ModItemGroup;
@@ -31,10 +32,11 @@ public class LostLifeMod implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
-		ModBlocks.registerModBLocks();
-		ModBlockEntities.registerModBlockEntities();
+		ModBlocks.registerModBlocks();
+		ModBlockEntities.registerAllBlockEntities();
 
 
+		ModScreenHandlers.registerAllScreenHandlers();
 
 		// Proceed with mild caution.
 		GeckoLib.initialize();
