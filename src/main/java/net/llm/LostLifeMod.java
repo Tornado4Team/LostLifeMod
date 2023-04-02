@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.llm.block.ModBlocks;
+import net.llm.block.custom.ModBlockEntities;
 import net.llm.entity.ModEntityClass;
 import net.llm.entity.custom.ChomperEntity;
 import net.llm.item.ModItemGroup;
@@ -31,9 +32,15 @@ public class LostLifeMod implements ModInitializer {
 		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBLocks();
-		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, CENOZOIC_FOSSIL_BLOCK_PLACED_KEY);
+		ModBlockEntities.registerModBlockEntities();
+
+
+
 		// Proceed with mild caution.
 		GeckoLib.initialize();
+
+
+		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, CENOZOIC_FOSSIL_BLOCK_PLACED_KEY);
 
 		FabricDefaultAttributeRegistry.register(ModEntityClass.CHOMPER, ChomperEntity.setAttributes());
 

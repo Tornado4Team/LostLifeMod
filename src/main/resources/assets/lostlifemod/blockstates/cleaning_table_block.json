@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "lostlifemod:block/cleaning_table_block" }
+  }
+}

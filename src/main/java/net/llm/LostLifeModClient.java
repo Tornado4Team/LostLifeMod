@@ -8,6 +8,8 @@ import net.llm.entity.client.ChomperRenderer;
 public class LostLifeModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+
+
         EntityRendererRegistry.register(ModEntityClass.CHOMPER, ChomperRenderer::new);
     }
 }

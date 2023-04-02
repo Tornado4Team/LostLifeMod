@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.llm.LostLifeMod;
+import net.llm.block.custom.CleaningTableBlock;
 import net.llm.item.ModItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -18,6 +19,9 @@ public class ModBlocks {
 
     public static final Block   CENOZOIC_FOSSIL_BLOCK = registerBlock("cenozoic_fossil_block",
             new Block(FabricBlockSettings.of(Material.STONE).strength(4.0f).requiresTool()), ModItemGroup.LOSTLIFE);
+
+    public static final Block   CLEANING_TABLE_BLOCK = registerBlock("cleaning_table_block",
+            new CleaningTableBlock(FabricBlockSettings.of(Material.WOOD).strength(4.0f).requiresTool()), ModItemGroup.LOSTLIFE);
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);
