@@ -12,6 +12,8 @@ import net.minecraft.util.Identifier;
 public class ModBlockEntities {
     public static BlockEntityType<CleaningTableBlockEntity> CLEANING_TABLE;
     public static BlockEntityType<AnalyserBlockEntity> ANALYSER;
+    public static BlockEntityType<ExtractorBlockEntity> EXTRACTOR;
+    public static BlockEntityType<SynthetiserBlockEntity> SYNTHETISER;
 
 
     public static void registerAllBlockEntities() {
@@ -24,6 +26,16 @@ public class ModBlockEntities {
                 new Identifier(LostLifeMod.MOD_ID, "analyser"),
                 FabricBlockEntityTypeBuilder.create(AnalyserBlockEntity::new,
                         ModBlocks.ANALYSER_BLOCK).build(null));
+
+        EXTRACTOR = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                new Identifier(LostLifeMod.MOD_ID, "extractor"),
+                FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new,
+                        ModBlocks.EXTRACTOR_BLOCK).build(null));
+
+        SYNTHETISER = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                new Identifier(LostLifeMod.MOD_ID, "synthetiser"),
+                FabricBlockEntityTypeBuilder.create(SynthetiserBlockEntity::new,
+                        ModBlocks.SYNTHETISER_BLOCK).build(null));
 
 
     }

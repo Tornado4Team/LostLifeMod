@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     public static final Item FOSSIL = registerItem("fossil", new FossilItem(new FabricItemSettings()));
+    public static final Item FOSSIL_DIRTY = registerItem("fossil_dirty", new Item(new FabricItemSettings()));
     public static final Item DATA_DRIVE = registerItem("data_drive", new DataDriveItem(new FabricItemSettings().maxCount(1)));
     public static final Item VIAL = registerItem("vial", new VialItem(new FabricItemSettings().maxCount(16)));
     public static final Item SYRINGE = registerItem("syringe", new SyringeItem(new FabricItemSettings().maxCount(1)));
@@ -31,6 +32,7 @@ public class ModItems {
 
     public static void addItemsToItemGroup(){
         addToItemGroup(ModItemGroup.LOSTLIFE, FOSSIL);
+        addToItemGroup(ModItemGroup.LOSTLIFE, FOSSIL_DIRTY);
         addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_SPAWN_EGG);
         addToItemGroup(ModItemGroup.LOSTLIFE, DATA_DRIVE);
         addToItemGroup(ModItemGroup.LOSTLIFE, VIAL);

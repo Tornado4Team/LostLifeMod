@@ -1,10 +1,13 @@
 {
   "item.lostlifemod.fossil": "Fossil",
+  "item.lostlifemod.fossil_dirty": "Dirty Fossil",
   "item.lostlifemod.data_drive": "Data drive",
   "item.lostlifemod.vial": "DNA Vial",
   "item.lostlifemod.syringe": "Syringe",
 
   "block.lostlifemod.cenozoic_fossil_block": "Cenozoic Fossil Block",
   "block.lostlifemod.analyser_block": "DNA Analyzer",
+  "block.lostlifemod.extractor_block": "DNA Extractor",
+  "block.lostlifemod.synthetiser_block": "DNA Synthetiser",
   "block.lostlifemod.cleaning_table_block": "Cleaning Table"
 }
