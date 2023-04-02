@@ -1,9 +1,9 @@
 package net.llm.block.custom.entity;
 
-import java.util.Arrays;
-
 import net.llm.block.custom.CleaningTableBlock;
 import net.llm.block.custom.screen.CleaningTableScreenHandler;
+import net.llm.data.GenerateMobData;
+import net.llm.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -27,22 +28,19 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 public class CleaningTableBlockEntity
         extends LockableContainerBlockEntity
         implements SidedInventory {
-    private static final int INPUT_SLOT_INDEX = 3;
-    private static final int FUEL_SLOT_INDEX = 4;
+
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private int progress = 0;
+    private int maxProgress = 16;
     private static final int[] TOP_SLOTS = new int[]{3};
     private static final int[] BOTTOM_SLOTS = new int[]{0, 1, 2, 3};
     private static final int[] SIDE_SLOTS = new int[]{0, 1, 2, 4};
-    public static final int MAX_FUEL_USES = 20;
-    public static final int BREW_TIME_PROPERTY_INDEX = 0;
-    public static final int FUEL_PROPERTY_INDEX = 1;
-    public static final int PROPERTY_COUNT = 2;
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
     int brewTime;
-    private boolean[] slotsEmptyLastTick;
-    private Item itemBrewing;
     int fuel;
     protected final PropertyDelegate propertyDelegate = new PropertyDelegate(){
 
@@ -101,103 +99,77 @@ public class CleaningTableBlockEntity
         return true;
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, CleaningTableBlockEntity blockEntity) {
-        ItemStack itemStack = blockEntity.inventory.get(4);
-        if (blockEntity.fuel <= 0 && itemStack.isOf(Items.BLAZE_POWDER)) {
-            blockEntity.fuel = 20;
-            itemStack.decrement(1);
-            CleaningTableBlockEntity.markDirty(world, pos, state);
+    public static void tick(World world, BlockPos blockPos, BlockState state, CleaningTableBlockEntity entity) {
+        if(world.isClient()) {
+            return;
         }
-        boolean bl = CleaningTableBlockEntity.canCraft(blockEntity.inventory);
-        boolean bl2 = blockEntity.brewTime > 0;
-        ItemStack itemStack2 = blockEntity.inventory.get(3);
-        if (bl2) {
-            boolean bl3;
-            --blockEntity.brewTime;
-            boolean bl4 = bl3 = blockEntity.brewTime == 0;
-            if (bl3 && bl) {
-                CleaningTableBlockEntity.craft(world, pos, blockEntity.inventory);
-                CleaningTableBlockEntity.markDirty(world, pos, state);
-            } else if (!bl || !itemStack2.isOf(blockEntity.itemBrewing)) {
-                blockEntity.brewTime = 0;
-                CleaningTableBlockEntity.markDirty(world, pos, state);
+
+        if(hasRecipe(entity)) {
+            entity.progress++;
+            markDirty(world, blockPos, state);
+            if(entity.progress >= entity.maxProgress) {
+                craftItem(entity);
             }
-        } else if (bl && blockEntity.fuel > 0) {
-            --blockEntity.fuel;
-            blockEntity.brewTime = 400;
-            blockEntity.itemBrewing = itemStack2.getItem();
-            CleaningTableBlockEntity.markDirty(world, pos, state);
-        }
-        boolean[] bls = blockEntity.getSlotsEmpty();
-        if (!Arrays.equals(bls, blockEntity.slotsEmptyLastTick)) {
-            blockEntity.slotsEmptyLastTick = bls;
-            BlockState blockState = state;
-            if (!(blockState.getBlock() instanceof CleaningTableBlock)) {
-                return;
-            }
-            world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
+        } else {
+            entity.resetProgress();
+            markDirty(world, blockPos, state);
         }
     }
 
-
-    private boolean[] getSlotsEmpty() {
-        boolean[] bls = new boolean[3];
-        for (int i = 0; i < 3; ++i) {
-            if (this.inventory.get(i).isEmpty()) continue;
-            bls[i] = true;
+    private void resetProgress() {
+        this.progress = 0;
+    }
+    private static void craftItem(CleaningTableBlockEntity entity) {
+        SimpleInventory inventory = new SimpleInventory(entity.size());
+        for (int i = 0; i < entity.size(); i++) {
+            inventory.setStack(i, entity.getStack(i));
         }
-        return bls;
+
+        if(hasRecipe(entity)) {
+            entity.removeStack(1, 1);
+            GenerateMobData gendata = new GenerateMobData();
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData", gendata.generateData()); // replace with your desired NBT tag key-value pairs
+            ItemStack fossilStack = new ItemStack(ModItems.FOSSIL);
+            fossilStack.setNbt(nbtData);
+            entity.setStack(2, fossilStack);
+
+            entity.resetProgress();
+        }
     }
 
-    private static boolean canCraft(DefaultedList<ItemStack> slots) {
-        ItemStack itemStack = slots.get(3);
-        if (itemStack.isEmpty()) {
-            return false;
+    private static boolean hasRecipe(CleaningTableBlockEntity entity) {
+        SimpleInventory inventory = new SimpleInventory(entity.size());
+        for (int i = 0; i < entity.size(); i++) {
+            inventory.setStack(i, entity.getStack(i));
         }
-        if (!BrewingRecipeRegistry.isValidIngredient(itemStack)) {
-            return false;
-        }
-        for (int i = 0; i < 3; ++i) {
-            ItemStack itemStack2 = slots.get(i);
-            if (itemStack2.isEmpty() || !BrewingRecipeRegistry.hasRecipe(itemStack2, itemStack)) continue;
-            return true;
-        }
-        return false;
+
+        boolean hasRawGemInFirstSlot = entity.getStack(1).getItem() == ModItems.FOSSIL;
+
+        return hasRawGemInFirstSlot && canInsertItemIntoOutputSlot(inventory);
     }
 
-    private static void craft(World world, BlockPos pos, DefaultedList<ItemStack> slots) {
-        ItemStack itemStack = slots.get(3);
-        for (int i = 0; i < 3; ++i) {
-            slots.set(i, BrewingRecipeRegistry.craft(itemStack, slots.get(i)));
-        }
-        itemStack.decrement(1);
-        if (itemStack.getItem().hasRecipeRemainder()) {
-            ItemStack itemStack2 = new ItemStack(itemStack.getItem().getRecipeRemainder());
-            if (itemStack.isEmpty()) {
-                itemStack = itemStack2;
-            } else {
-                ItemScatterer.spawn(world, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), itemStack2);
-            }
-        }
-        slots.set(3, itemStack);
-        world.syncWorldEvent(WorldEvents.BREWING_STAND_BREWS, pos, 0);
+
+    private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory) {
+        return inventory.getStack(2).isEmpty() && !inventory.getStack(1).hasNbt();
     }
+
+
+
+
 
     @Override
     public void readNbt(NbtCompound nbt) {
+        Inventories.readNbt(nbt, inventory);
         super.readNbt(nbt);
-        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.readNbt(nbt, this.inventory);
-        this.brewTime = nbt.getShort("BrewTime");
-        this.fuel = nbt.getByte("Fuel");
+        progress = nbt.getInt("gem_infusing_station.progress");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putShort("BrewTime", (short)this.brewTime);
-        Inventories.writeNbt(nbt, this.inventory);
-        nbt.putByte("Fuel", (byte)this.fuel);
+        Inventories.writeNbt(nbt, inventory);
+        nbt.putInt("gem_infusing_station.progress", progress);
     }
 
     @Override
@@ -233,16 +205,6 @@ public class CleaningTableBlockEntity
         return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) > 64.0);
     }
 
-    @Override
-    public boolean isValid(int slot, ItemStack stack) {
-        if (slot == 3) {
-            return BrewingRecipeRegistry.isValidIngredient(stack);
-        }
-        if (slot == 4) {
-            return stack.isOf(Items.BLAZE_POWDER);
-        }
-        return (stack.isOf(Items.POTION) || stack.isOf(Items.SPLASH_POTION) || stack.isOf(Items.LINGERING_POTION) || stack.isOf(Items.GLASS_BOTTLE)) && this.getStack(slot).isEmpty();
-    }
 
     @Override
     public int[] getAvailableSlots(Direction side) {

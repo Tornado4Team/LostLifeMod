@@ -20,7 +20,9 @@ public class FossilItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(user.getStackInHand(hand).hasNbt()){
-            user.getStackInHand(hand).setNbt(new NbtCompound());
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData","Dodo");
+            user.getStackInHand(hand).setNbt(nbtData);
         }
         else {
             NbtCompound nbtData = new NbtCompound();
@@ -37,7 +39,7 @@ public class FossilItem extends Item {
             String savedData = stack.getNbt().getString("lostlifemod.savedData");
             tooltip.add(Text.literal(savedData));
         } else {
-            tooltip.add(Text.literal("Error"));
+            tooltip.add(Text.literal("Undiscovered"));
         }
 
         super.appendTooltip(stack, world, tooltip, context);
