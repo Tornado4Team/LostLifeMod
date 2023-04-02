@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "lostlifemod:block/analyser_block" }
+  }
+}

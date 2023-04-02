@@ -1,6 +1,5 @@
 package net.llm.item.custom;
 
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -9,25 +8,26 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class DataDriveItem extends Item {
-    public DataDriveItem(Settings settings) {
-        super(settings.maxDamage(16));
+public class VialItem extends Item {
+    public VialItem(Settings settings) {
+        super(settings);
     }
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack heldItem = user.getStackInHand(hand);
-        if (heldItem.isDamageable()) {
-            int maxDamage = heldItem.getMaxDamage();
-            int currentDamage = heldItem.getDamage();
-            float durability = (float) (maxDamage - currentDamage) / maxDamage;
-            heldItem.damage(1, user, (entity) -> entity.sendToolBreakStatus(hand));
-            user.sendMessage(Text.literal(String.format("%.0f%%", durability * 100)));
+        if(user.getStackInHand(hand).hasNbt()){
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData","Dodo");
+            user.getStackInHand(hand).setNbt(nbtData);
+        }
+        else {
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData","Smilodon");
+            user.getStackInHand(hand).setNbt(nbtData);
         }
         return super.use(world, user, hand);
     }
@@ -37,9 +37,9 @@ public class DataDriveItem extends Item {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (stack.hasNbt()) {
             String savedData = stack.getNbt().getString("lostlifemod.savedData");
-            tooltip.add(Text.literal("Saved data: "+savedData));
+            tooltip.add(Text.literal(savedData));
         } else {
-            tooltip.add(Text.literal("Empty data drive"));
+            tooltip.add(Text.literal("Unknown"));
         }
 
         super.appendTooltip(stack, world, tooltip, context);

@@ -6,6 +6,8 @@ import net.llm.LostLifeMod;
 import net.llm.entity.ModEntityClass;
 import net.llm.item.custom.DataDriveItem;
 import net.llm.item.custom.FossilItem;
+import net.llm.item.custom.SyringeItem;
+import net.llm.item.custom.VialItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
@@ -17,6 +19,8 @@ public class ModItems {
 
     public static final Item FOSSIL = registerItem("fossil", new FossilItem(new FabricItemSettings()));
     public static final Item DATA_DRIVE = registerItem("data_drive", new DataDriveItem(new FabricItemSettings().maxCount(1)));
+    public static final Item VIAL = registerItem("vial", new VialItem(new FabricItemSettings().maxCount(16)));
+    public static final Item SYRINGE = registerItem("syringe", new SyringeItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item CHOMPER_SPAWN_EGG = registerItem("chomper_spawn_egg",
             new SpawnEggItem(ModEntityClass.CHOMPER,0x22b341, 0x19732e,
@@ -29,6 +33,8 @@ public class ModItems {
         addToItemGroup(ModItemGroup.LOSTLIFE, FOSSIL);
         addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_SPAWN_EGG);
         addToItemGroup(ModItemGroup.LOSTLIFE, DATA_DRIVE);
+        addToItemGroup(ModItemGroup.LOSTLIFE, VIAL);
+        addToItemGroup(ModItemGroup.LOSTLIFE, SYRINGE);
     }
 
     private static void addToItemGroup(ItemGroup group, Item item){

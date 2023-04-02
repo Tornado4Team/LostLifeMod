@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
     public static BlockEntityType<CleaningTableBlockEntity> CLEANING_TABLE;
+    public static BlockEntityType<AnalyserBlockEntity> ANALYSER;
 
 
     public static void registerAllBlockEntities() {
@@ -19,6 +20,10 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.create(CleaningTableBlockEntity::new,
                         ModBlocks.CLEANING_TABLE_BLOCK).build(null));
 
+        ANALYSER = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                new Identifier(LostLifeMod.MOD_ID, "analyser"),
+                FabricBlockEntityTypeBuilder.create(AnalyserBlockEntity::new,
+                        ModBlocks.ANALYSER_BLOCK).build(null));
 
 
     }

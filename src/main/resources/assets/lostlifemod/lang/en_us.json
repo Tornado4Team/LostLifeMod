@@ -1,6 +1,10 @@
 {
   "item.lostlifemod.fossil": "Fossil",
   "item.lostlifemod.data_drive": "Data drive",
+  "item.lostlifemod.vial": "DNA Vial",
+  "item.lostlifemod.syringe": "Syringe",
 
-  "block.lostlifemod.cenozoic_fossil_block": "Cenozoic Fossil Block"
+  "block.lostlifemod.cenozoic_fossil_block": "Cenozoic Fossil Block",
+  "block.lostlifemod.analyser_block": "DNA Analyzer",
+  "block.lostlifemod.cleaning_table_block": "Cleaning Table"
 }
