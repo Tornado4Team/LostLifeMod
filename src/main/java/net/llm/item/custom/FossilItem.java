@@ -45,9 +45,4 @@ public class FossilItem extends Item {
         super.appendTooltip(stack, world, tooltip, context);
     }
 
-    @Override
-    public boolean hasGlint(ItemStack stack){
-        return stack.hasNbt();
-    }
-
 }

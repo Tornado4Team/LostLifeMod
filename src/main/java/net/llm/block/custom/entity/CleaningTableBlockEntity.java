@@ -144,7 +144,7 @@ public class CleaningTableBlockEntity
             inventory.setStack(i, entity.getStack(i));
         }
 
-        boolean hasRawGemInFirstSlot = entity.getStack(1).getItem() == ModItems.FOSSIL;
+        boolean hasRawGemInFirstSlot = entity.getStack(1).getItem() == ModItems.FOSSIL_DIRTY;
 
         return hasRawGemInFirstSlot && canInsertItemIntoOutputSlot(inventory);
     }

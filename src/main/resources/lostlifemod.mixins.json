@@ -5,6 +5,9 @@
 	"mixins": [
 		"ExampleMixin"
 	],
+	"server": [
+		"InjectableEntity"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

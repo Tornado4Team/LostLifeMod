@@ -1,11 +1,14 @@
 package net.llm.item.custom;
 
+import net.llm.interfaces.InjectableEntity;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -30,6 +33,18 @@ public class SyringeItem extends Item {
             user.getStackInHand(hand).setNbt(nbtData);
         }
         return super.use(world, user, hand);
+    }
+
+    @Override
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        if (stack.hasNbt() && entity instanceof InjectableEntity injectableEntity){
+            String mob = stack.getNbt().getString("lostlifemod.savedData");
+            injectableEntity.setInjectedMob(mob);
+            user.sendMessage(Text.literal("Injected: "+mob));
+            return ActionResult.SUCCESS;
+
+        }
+        return super.useOnEntity(stack, user, entity, hand);
     }
 
 
