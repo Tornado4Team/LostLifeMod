@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "lostlifemod:cenozoic_fossil_block"
+    "lostlifemod:cenozoic_fossil_block",
+    "lostlifemod:paleozoic_fossil_block"
   ]
 }

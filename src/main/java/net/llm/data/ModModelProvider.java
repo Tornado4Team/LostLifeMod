@@ -16,6 +16,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.CENOZOIC_FOSSIL_BLOCK);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.PALEOZOIC_FOSSIL_BLOCK);
     }
 
     @Override

@@ -26,6 +26,7 @@ public class LostLifeMod implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("lostlifemod");
 
 	public static final RegistryKey<PlacedFeature> CENOZOIC_FOSSIL_BLOCK_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("lostlifemod","cenozoic_fossil_block"));
+	public static final RegistryKey<PlacedFeature> PALEOZOIC_FOSSIL_BLOCK_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("lostlifemod","paleozoic_fossil_block"));
 
 	@Override
 	public void onInitialize() {
@@ -43,6 +44,7 @@ public class LostLifeMod implements ModInitializer {
 
 
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, CENOZOIC_FOSSIL_BLOCK_PLACED_KEY);
+		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, PALEOZOIC_FOSSIL_BLOCK_PLACED_KEY);
 
 		FabricDefaultAttributeRegistry.register(ModEntityClass.CHOMPER, ChomperEntity.setAttributes());
 

@@ -21,10 +21,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         offerSmelting(exporter, List.of(ModItems.FOSSIL), RecipeCategory.MISC, ModItems.FOSSIL,
-                0.7f, 200, "citrine");
+                0.7f, 200, "lostlifemod");
 
         offerReversibleCompactingRecipes(exporter, RecipeCategory.BUILDING_BLOCKS, ModItems.FOSSIL, RecipeCategory.DECORATIONS,
                 ModBlocks.CENOZOIC_FOSSIL_BLOCK);
+
+        offerReversibleCompactingRecipes(exporter, RecipeCategory.BUILDING_BLOCKS, ModItems.FOSSIL, RecipeCategory.DECORATIONS,
+                ModBlocks.PALEOZOIC_FOSSIL_BLOCK);
 
         // JUST AN EXAMPLE
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FOSSIL)

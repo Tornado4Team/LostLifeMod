@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DataDriveItem extends Item {
     public DataDriveItem(Settings settings) {
-        super(settings.maxDamage(16));
+        super(settings.maxDamage(100));
     }
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -37,7 +37,7 @@ public class DataDriveItem extends Item {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (stack.hasNbt()) {
             String savedData = stack.getNbt().getString("lostlifemod.savedData");
-            tooltip.add(Text.literal("Saved data: "+savedData));
+            tooltip.add(Text.literal("Saved data: "+savedData +" "+ (stack.getMaxDamage()-stack.getDamage()) +"%"));
         } else {
             tooltip.add(Text.literal("Empty data drive"));
         }

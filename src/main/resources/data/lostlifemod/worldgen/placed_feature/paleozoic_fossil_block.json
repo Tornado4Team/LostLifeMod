@@ -1,5 +1,5 @@
 {
-  "feature": "lostlifemod:cenozoic_fossil_block",
+  "feature": "lostlifemod:paleozoic_fossil_block",
   "placement": [
     {
       "type": "minecraft:count",
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:trapezoid",
         "max_inclusive": {
-          "absolute": 70
+          "absolute": -5
         },
         "min_inclusive": {
-          "absolute": 5
+          "absolute": -24
         }
       }
     },

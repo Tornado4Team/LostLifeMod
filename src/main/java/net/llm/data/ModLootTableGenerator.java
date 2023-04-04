@@ -13,7 +13,9 @@ public class ModLootTableGenerator extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(ModBlocks.CENOZOIC_FOSSIL_BLOCK);
+        addDrop(ModBlocks.PALEOZOIC_FOSSIL_BLOCK);
 
-        addDrop(ModBlocks.CENOZOIC_FOSSIL_BLOCK, oreDrops(ModBlocks.CENOZOIC_FOSSIL_BLOCK, ModItems.FOSSIL));
+        addDrop(ModBlocks.CENOZOIC_FOSSIL_BLOCK, oreDrops(ModBlocks.CENOZOIC_FOSSIL_BLOCK, ModItems.FOSSIL_DIRTY));
+        addDrop(ModBlocks.PALEOZOIC_FOSSIL_BLOCK, oreDrops(ModBlocks.PALEOZOIC_FOSSIL_BLOCK, ModItems.FOSSIL_DIRTY));
     }
 }

@@ -126,6 +126,8 @@ public class AnalyserBlockEntity
             fossilStack.setNbt(nbtData);
             entity.setStack(2, fossilStack);
 
+
+            //Fossil recovery data 7-13%
             entity.resetProgress();
         }
     }
