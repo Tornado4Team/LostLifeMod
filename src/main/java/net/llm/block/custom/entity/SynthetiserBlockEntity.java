@@ -1,8 +1,8 @@
 package net.llm.block.custom.entity;
 
 
+import net.llm.LostLifeMod;
 import net.llm.block.custom.screen.SynthetiserScreenHandler;
-import net.llm.data.GenerateMobData;
 import net.llm.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -11,12 +11,15 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -70,12 +73,12 @@ public class SynthetiserBlockEntity
     };
 
     public SynthetiserBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.EXTRACTOR, pos, state);
+        super(ModBlockEntities.SYNTHETISER, pos, state);
     }
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("container.brewing");
+        return Text.literal("DNA Synthetiser");
     }
 
     @Override
@@ -119,12 +122,12 @@ public class SynthetiserBlockEntity
         }
 
         if(hasRecipe(entity)) {
+            entity.removeStack(0, 1);
             entity.removeStack(1, 1);
-            GenerateMobData gendata = new GenerateMobData();
-            NbtCompound nbtData = new NbtCompound();
-            nbtData.putString("lostlifemod.savedData", gendata.generateData()); // replace with your desired NBT tag key-value pairs
-            ItemStack fossilStack = new ItemStack(ModItems.FOSSIL);
-            fossilStack.setNbt(nbtData);
+            String itemName = inventory.getStack(0).getNbt().getString("lostlifemod.savedData")+"_egg";
+            Identifier itemID = new Identifier(LostLifeMod.MOD_ID, itemName);
+            Item item = Registries.ITEM.get(itemID);
+            ItemStack fossilStack = new ItemStack(item);
             entity.setStack(2, fossilStack);
 
             entity.resetProgress();
@@ -137,9 +140,10 @@ public class SynthetiserBlockEntity
             inventory.setStack(i, entity.getStack(i));
         }
 
-        boolean hasRawGemInFirstSlot = entity.getStack(1).getItem() == ModItems.FOSSIL;
+        boolean hasRawGemInFirstSlot = entity.getStack(0).getItem() == ModItems.DATA_DRIVE;
+        boolean hasRawGemInSecondSlot = entity.getStack(1).getItem() == Items.EGG;
 
-        return hasRawGemInFirstSlot && canInsertItemIntoOutputSlot(inventory);
+        return hasRawGemInFirstSlot && hasRawGemInSecondSlot && canInsertItemIntoOutputSlot(inventory);
     }
 
 

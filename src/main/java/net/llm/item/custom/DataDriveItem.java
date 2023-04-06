@@ -1,6 +1,5 @@
 package net.llm.item.custom;
 
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -9,7 +8,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,6 +20,18 @@ public class DataDriveItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack heldItem = user.getStackInHand(hand);
+
+        if(user.getStackInHand(hand).hasNbt()){
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData","chomper");
+            user.getStackInHand(hand).setNbt(nbtData);
+        }
+        else {
+            NbtCompound nbtData = new NbtCompound();
+            nbtData.putString("lostlifemod.savedData","chomper");
+            user.getStackInHand(hand).setNbt(nbtData);
+        }
+
         if (heldItem.isDamageable()) {
             int maxDamage = heldItem.getMaxDamage();
             int currentDamage = heldItem.getDamage();
