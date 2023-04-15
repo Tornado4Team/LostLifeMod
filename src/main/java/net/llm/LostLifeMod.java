@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.llm.block.ModBlocks;
+import net.llm.entity.ModEntities;
+import net.llm.entity.custom.ChomperEntity;
 import net.llm.item.ModItemGroup;
 import net.llm.item.ModItems;
 import net.minecraft.registry.RegistryKey;
@@ -42,7 +44,8 @@ public class LostLifeMod implements ModInitializer {
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, CENOZOIC_FOSSIL_BLOCK_PLACED_KEY);
 		BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, PALEOZOIC_FOSSIL_BLOCK_PLACED_KEY);
 
-		//FabricDefaultAttributeRegistry.register(ModEntityClass.CHOMPER, ChomperEntity.setAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.CHOMPER, ChomperEntity.setAttributes());
+
 
 		LOGGER.info("Hello Fabric world!");
 	}

@@ -3,6 +3,7 @@ package net.llm.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.llm.LostLifeMod;
+import net.llm.entity.ModEntities;
 import net.llm.item.custom.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -23,9 +24,10 @@ public class ModItems {
         //    new SpawnEggItem(ModEntityClass.CHOMPER,0x22b341, 0x19732e,
                //     new FabricItemSettings().maxCount(16)));
 
- //   public static final Item CHOMPER_SPAWN_EGG = registerItem("chomper_spawn_egg",
-       ///    new SpawnEggItem(ModEntityClass.CHOMPER,0x918067, 0x124ba6,
-       //             new FabricItemSettings()));
+
+    public static final Item CHOMPER_SPAWN_EGG = registerItem("chomper_spawn_egg",
+            new SpawnEggItem(ModEntities.CHOMPER, 0x918067, 0x124ba6, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LostLifeMod.MOD_ID, name), item);
     }
@@ -38,7 +40,7 @@ public class ModItems {
         addToItemGroup(ModItemGroup.LOSTLIFE, SYRINGE);
 
 
-      //  addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_SPAWN_EGG);
+        addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_SPAWN_EGG);
        // addToItemGroup(ModItemGroup.LOSTLIFE, CHOMPER_EGG);
     }
 

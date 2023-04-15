@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
-	
+
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -17,18 +17,10 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-    maven { url 'https://dl.cloudsmith.io/public/azuredoom-mods/azurelib/maven/' }
+	maven { url 'https://dl.cloudsmith.io/public/azuredoom-mods/azurelib/maven/' }
 }
 
 loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        modid {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
     runs {
         // This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
         datagen {
@@ -37,7 +29,7 @@ loom {
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
             vmArg "-Dfabric-api.datagen.modid=lostlifemod"
- 
+
             runDir "build/datagen"
         }
     }
@@ -61,8 +53,8 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation 'mod.azure.azurelib:azurelib-fabric-1.19.4:1.0.6'
-	
+
+	modImplementation 'mod.azure.azurelib:azurelib-fabric-1.19.4:1.0.6'
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
